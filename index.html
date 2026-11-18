@@ -32,7 +32,7 @@
   <img src="roman.png" alt="" style="width: 20%">
 
   <div id="player">
-    <img src="player.png" alt="">
+    <img id ="playerbild" src="player.png" alt="">
     <button id="zurueck" aria-label="Zurück"><img src="zurück.png" alt=""></button>
     <button id="play" aria-label="Abspielen / Pause"><img src="play.png" alt=""></button>
     <button id="weiter" aria-label="Weiter"><img src="weiter.png" alt=""></button>
@@ -62,6 +62,11 @@
   $("zurueck").onclick = () => laden(i - 1, !audio.paused);
   $("weiter").onclick  = () => laden(i + 1, !audio.paused);
   audio.onended        = () => { if (i < KAPITEL.length - 1) laden(i + 1, true); };
+
+  const STILL = "player.png", LAEUFT = "player_dreh.gif";
+  new Image().src = LAEUFT;   // vorladen, damit es beim Start nicht ruckelt
+  audio.onplay  = () => $("playerbild").src = LAEUFT;
+  audio.onpause = () => $("playerbild").src = STILL;
 
   laden(0, false);
 </script>
